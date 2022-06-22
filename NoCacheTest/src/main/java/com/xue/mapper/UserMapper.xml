@@ -44,5 +44,4 @@
         VALUES (#{name}, #{gender}, #{age}, #{email}, #{phone}, #{address})
     </insert>
 
-
 </mapper>

@@ -7,6 +7,7 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -37,6 +38,18 @@ public class UserServiceImpl implements UserService {
     public List<User> selectUsersWithScope(Map map) {
         return userMapper.selectUsersWithScope(map);
     }
+
+    /*测试一级缓存*/
+//    @Override
+//    public List<User> selectUsersWithScope(Map map) {
+//        List<User> users = new ArrayList<>();
+//        for (int i = 0; i < 2; i++) {
+//            users = userMapper.selectUsersWithScope(map);
+//            logger.info("----------->query database");
+//            System.out.println(users);
+//        }
+//        return users;
+//    }
 
     @Override
     public List<String> selectUsersByID(Map map) {

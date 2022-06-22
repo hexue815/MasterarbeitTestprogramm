@@ -8,24 +8,19 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.HashMap;
 import java.util.List;
 
-@Controller
+@RestController
+@RequestMapping("/no-cache")
 public class UserController {
     private User user = new User();
     @Autowired
     @Qualifier("userServiceImpl")
     private UserService userService;
-    @ResponseBody
-    @RequestMapping("/getall")
-    public String getAll(){
-        List<User> users = userService.getAllUsers();
-        return users.toString();
-    }
 
-    @ResponseBody
     @RequestMapping("/init")
     public void init(){
         for (int i = 1; i <=1000; i++) {
@@ -33,7 +28,12 @@ public class UserController {
         }
     }
 
-    @ResponseBody
+    @RequestMapping("/getall")
+    public String getAll(){
+        List<User> users = userService.getAllUsers();
+        return users.toString();
+    }
+
     @RequestMapping("/selectusers/{start}/{end}")
     public String selectUsers(@PathVariable("start") int start, @PathVariable("end") int end){
         HashMap map = new HashMap<>();
@@ -43,7 +43,6 @@ public class UserController {
         return users.toString();
     }
 
-    @ResponseBody
     @RequestMapping("/selectusersbyattribute/{attribute}/{start}/{end}")
     public String selectusersbyattribute(@PathVariable("attribute") String attribute, @PathVariable("start") int start, @PathVariable("end") int end) {
         HashMap map = new HashMap<>();
