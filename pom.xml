@@ -6,7 +6,11 @@
 
     <groupId>com.xue</groupId>
     <artifactId>MasterarbeitTestProgramm</artifactId>
+    <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
+    <modules>
+        <module>L1-CacheTest</module>
+    </modules>
 
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
