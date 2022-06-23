@@ -7,4 +7,5 @@
     <import resource="spring-mybatis.xml"/>
     <import resource="spring-service.xml"/>
     <import resource="spring-mvc.xml"/>
+    <import resource="spring-cache-anno.xml"/>
 </beans>
