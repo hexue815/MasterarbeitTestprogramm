@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/L1-CacheTest/L1-CacheTest.iml" filepath="$PROJECT_DIR$/L1-CacheTest/L1-CacheTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/NoCacheTest/NoCacheTest.iml" filepath="$PROJECT_DIR$/NoCacheTest/NoCacheTest.iml" />
+    </modules>
+  </component>
+</project>
