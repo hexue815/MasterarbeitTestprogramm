@@ -8,6 +8,7 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="NoCacheTest" />
+        <module name="L2-CacheTest" />
         <module name="L1-CacheTest" />
       </profile>
     </annotationProcessing>

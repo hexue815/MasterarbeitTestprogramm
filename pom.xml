@@ -11,6 +11,7 @@
     <modules>
         <module>L1-CacheTest</module>
         <module>NoCacheTest</module>
+        <module>L2-CacheTest</module>
     </modules>
 
     <properties>
