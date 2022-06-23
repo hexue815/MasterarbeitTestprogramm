@@ -7,11 +7,8 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-<<<<<<< HEAD
-        <module name="L1-CacheTest" />
-=======
         <module name="NoCacheTest" />
->>>>>>> NoCache
+        <module name="L1-CacheTest" />
       </profile>
     </annotationProcessing>
   </component>
