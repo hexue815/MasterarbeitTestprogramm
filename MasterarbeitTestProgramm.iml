@@ -9,10 +9,14 @@
         <webroots>
           <root url="file://$MODULE_DIR$/NoCacheTest/web" relative="/" />
         </webroots>
+<<<<<<< HEAD
         <sourceRoots>
           <root url="file://$MODULE_DIR$/src/main/java" />
           <root url="file://$MODULE_DIR$/src/main/resources" />
         </sourceRoots>
+=======
+        <sourceRoots />
+>>>>>>> NoCache
       </configuration>
     </facet>
   </component>
