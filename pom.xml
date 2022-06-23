@@ -13,6 +13,7 @@
         <module>NoCacheTest</module>
         <module>L2-CacheTest</module>
         <module>SpringCacheTest</module>
+        <module>RedisCacheTest</module>
     </modules>
 
     <properties>
