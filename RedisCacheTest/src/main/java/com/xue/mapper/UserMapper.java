@@ -25,4 +25,6 @@ public interface UserMapper {
     List<String> selectUsersByPhone(Map map);
 
     List<String> selectUsersByAddress(Map map);
+
+    User getUserByID(int id);
 }

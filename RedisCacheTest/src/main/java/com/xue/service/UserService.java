@@ -28,4 +28,6 @@ public interface UserService {
     List<String> selectUsersByAddress(Map map);
 
     List<String> selectUsersByAge(Map map);
+
+    User getUserByID(int id);
 }

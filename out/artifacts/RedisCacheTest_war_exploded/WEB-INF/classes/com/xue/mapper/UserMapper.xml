@@ -44,4 +44,8 @@
         VALUES (#{name}, #{gender}, #{age}, #{email}, #{phone}, #{address})
     </insert>
 
+    <select id="getUserByID" parameterType="int" resultType="User">
+        select * from user where id = #{id}
+    </select>
+
 </mapper>

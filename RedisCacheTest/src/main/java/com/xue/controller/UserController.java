@@ -1,6 +1,7 @@
 package com.xue.controller;
 
 import com.xue.pojo.User;
+import com.xue.service.RedisOperate;
 import com.xue.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -8,6 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -17,6 +19,9 @@ public class UserController {
     @Autowired
     @Qualifier("userServiceImpl")
     private UserService userService;
+    @Autowired
+    @Qualifier("redisOperateImpl")
+    private RedisOperate redisOperate;
 
     @RequestMapping("/init")
     public void init(){
@@ -31,12 +36,22 @@ public class UserController {
         return users.toString();
     }
 
-    @RequestMapping("/selectusers/{start}/{end}")
-    public String selectUsers(@PathVariable("start") int start, @PathVariable("end") int end){
-        HashMap map = new HashMap<>();
-        map.put("start", start-1);
-        map.put("end", end+1-start);
-        List<User> users = userService.selectUsersWithScope(map);
+
+    @RequestMapping("/selectuserss/{start}/{end}")
+    public String selectUsersTest(@PathVariable("start") int start, @PathVariable("end") int end){
+        List<String> users = new ArrayList<>();
+        for (int i = start; i <=end ; i++) {
+            if (redisOperate.get(String.valueOf(i))==null){
+                System.out.println("-------------------->query the database");
+                String s = userService.getUserByID(i).toString();
+                redisOperate.set(String.valueOf(i), s);
+                users.add(s);
+            }else {
+                System.out.println("-----------get the data from cache---------------");
+                String s = redisOperate.get(String.valueOf(i));
+                users.add(s);
+            }
+        }
         return users.toString();
     }
 
@@ -64,6 +79,30 @@ public class UserController {
             users = userService.selectUsersByAge(map);
         }
         return users.toString();
+    }
+
+
+//    @RequestMapping("/selectusersbyattribute/{attribute}/{start}/{end}")
+//    public void testRedis(@PathVariable("start") int start, @PathVariable("end") int end){
+//        HashMap map = new HashMap<>();
+//        map.put("start", start - 1);
+//        map.put("end", end + 1 - start);
+//
+//        String start1 = redisOperate.get(String.valueOf(start));
+//        System.out.println("--------------------> start1 ist:" + start1);
+//        if (start1==null){
+//            String s = userService.selectUsersByID(map).toString();
+//            redisOperate.set(String.valueOf(start), s);
+//        }else {
+//            System.out.println("-----------get the data from cache---------------");
+//        }
+//    }
+
+    @RequestMapping("/test")
+    public String test() {
+        /*创建string key*/
+        redisOperate.set("one","1111111111");
+        return "hello redis";
     }
 }
 

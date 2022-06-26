@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="
+            http://www.springframework.org/schema/beans
+            http://www.springframework.org/schema/beans/spring-beans.xsd
+            http://www.springframework.org/schema/context
+            http://www.springframework.org/schema/context/spring-context.xsd">
+    <!--?????-->
+    <bean id="poolConfig" class="redis.clients.jedis.JedisPoolConfig">
+        <!-- ??????? -->
+        <property name="maxIdle" value="300"/>
+        <!-- ????? -->
+        <property name="maxTotal" value="1000" />
+        <!-- ??????????? -->
+        <property name="numTestsPerEvictionRun" value="1024" />
+        <!-- ????????????? -->
+        <property name="timeBetweenEvictionRunsMillis" value="30000" />
+        <!-- ???????? -->
+        <property name="minEvictableIdleTimeMillis" value="1800000" />
+        <!-- ?????????????,???:????????,??-1 -->
+        <property name="maxWaitMillis" value="1000" />
+        <!-- ?????????????, ??false -->
+        <property name="testOnBorrow" value="true" />
+        <property name="testOnReturn" value="true" />
+        <!-- ?????????, ??false -->
+        <property name="testWhileIdle" value="true" />
+        <!-- ?????????, false???,true??????, ??true -->
+        <property name="blockWhenExhausted" value="false" />
+    </bean>
+    <!--Spring??Jedis,??????-->
+    <!--
+      hostName->???redis????
+      port->redis??
+      password->redis?????????
+      pool-config-ref->????????
+     -->
+    <bean id="connectionFactory" class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory"
+          p:hostName="127.0.0.1"
+          p:port="6379"
+          p:password=""
+          p:pool-config-ref="poolConfig"
+          p:timeout="100000"/>
+    <bean id="redisTemplate" class="org.springframework.data.redis.core.RedisTemplate">
+        <property name="connectionFactory" ref="connectionFactory" />
+        <property name="keySerializer">
+            <!--?key?????-->
+            <bean class="org.springframework.data.redis.serializer.StringRedisSerializer" />
+        </property>
+        <!--?value?????-->
+        <property name="valueSerializer">
+            <bean class="org.springframework.data.redis.serializer.StringRedisSerializer" />
+        </property>
+        <!--?hash key?????-->
+        <property name="hashKeySerializer">
+            <bean class="org.springframework.data.redis.serializer.StringRedisSerializer" />
+        </property>
+        <!--?hash value?????-->
+        <property name="hashValueSerializer">
+            <bean class="org.springframework.data.redis.serializer.StringRedisSerializer" />
+        </property>
+    </bean>
+</beans>

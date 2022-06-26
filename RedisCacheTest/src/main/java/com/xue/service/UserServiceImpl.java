@@ -85,6 +85,12 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public User getUserByID(int id) {
+        return userMapper.getUserByID(id);
+    }
+
+
+    @Override
     public void initDatabase(User user) {
         user.setName(RandomValue.getRandomName());
         user.setGender(RandomValue.getRandomGender());
