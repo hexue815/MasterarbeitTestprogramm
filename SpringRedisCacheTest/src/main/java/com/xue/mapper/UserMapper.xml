@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xue.mapper.UserMapper">
+    <select id="getAllUsers" resultType="User">
+        select * from user
+    </select>
+
+    <select id="selectUsersWithScope" resultType="User" parameterType="map">
+        select * from user limit #{start}, #{end}
+    </select>
+
+    <select id="selectUsersByID" resultType="String" parameterType="map">
+        select id from user limit #{start}, #{end}
+    </select>
+
+    <select id="selectUsersByName" resultType="String" parameterType="map">
+        select name from user limit #{start}, #{end}
+    </select>
+
+    <select id="selectUsersByGender" resultType="String" parameterType="map">
+        select gender from user limit #{start}, #{end}
+    </select>
+
+    <select id="selectUsersByAge" resultType="String" parameterType="map">
+        select age from user limit #{start}, #{end}
+    </select>
+
+    <select id="selectUsersByEmail" resultType="String" parameterType="map">
+        select email from user limit #{start}, #{end}
+    </select>
+
+    <select id="selectUsersByAddress" resultType="String" parameterType="map">
+        select address from user limit #{start}, #{end}
+    </select>
+
+    <select id="selectUsersByPhone" resultType="String" parameterType="map">
+        select phone from user limit #{start}, #{end}
+    </select>
+    
+    <insert id="insertUser" parameterType="User">
+        insert into user ( name, gender, age, email, phone, address)
+        VALUES (#{name}, #{gender}, #{age}, #{email}, #{phone}, #{address})
+    </insert>
+
+</mapper>

@@ -12,6 +12,7 @@
         <module name="L1-CacheTest" />
         <module name="L2-CacheTest" />
         <module name="RedisCacheTest" />
+        <module name="SpringRedisCacheTest" />
       </profile>
     </annotationProcessing>
   </component>
