@@ -30,4 +30,6 @@ public interface UserService {
     List<String> selectUsersByAge(Map map);
 
     User getUserByID(int id);
+
+    String getEmailByID(int id);
 }

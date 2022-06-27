@@ -48,4 +48,8 @@
         select * from user where id = #{id}
     </select>
 
+    <select id="getEmailByID" parameterType="int" resultType="String">
+        select email from user where id = #{id}
+    </select>
+
 </mapper>

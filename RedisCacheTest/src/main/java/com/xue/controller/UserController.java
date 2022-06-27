@@ -36,9 +36,11 @@ public class UserController {
         return users.toString();
     }
 
-
-    @RequestMapping("/selectuserss/{start}/{end}")
-    public String selectUsersTest(@PathVariable("start") int start, @PathVariable("end") int end){
+    /*
+    * query all attributes of users with scope
+    * */
+    @RequestMapping("/selectusers/{start}/{end}")
+    public String selectUsers(@PathVariable("start") int start, @PathVariable("end") int end){
         List<String> users = new ArrayList<>();
         for (int i = start; i <=end ; i++) {
             if (redisOperate.get(String.valueOf(i))==null){
@@ -55,31 +57,53 @@ public class UserController {
         return users.toString();
     }
 
-    @RequestMapping("/selectusersbyattribute/{attribute}/{start}/{end}")
-    public String selectusersbyattribute(@PathVariable("attribute") String attribute, @PathVariable("start") int start, @PathVariable("end") int end) {
-        HashMap map = new HashMap<>();
-        map.put("start", start - 1);
-        map.put("end", end + 1 - start);
-
-        List<String> users;
-
-        if (attribute.equals("id")) {
-            users = userService.selectUsersByID(map);
-        }else if (attribute.equals("name")){
-            users = userService.selectUsersByName(map);
-        }else if (attribute.equals("gender")){
-            users = userService.selectUsersByGender(map);
-        }else if (attribute.equals("email")){
-            users = userService.selectUsersByEmail(map);
-        }else if (attribute.equals("phone")){
-            users = userService.selectUsersByPhone(map);
-        }else if (attribute.equals("address")){
-            users = userService.selectUsersByAddress(map);
-        }else {
-            users = userService.selectUsersByAge(map);
+    /*
+    * query attribute "email" with scope
+    * query other attributes by adding getXXXByID(i)
+    * */
+    @RequestMapping("/getemails/{start}/{end}")
+    public String getEmailsByID(@PathVariable("start") int start, @PathVariable("end") int end){
+        List<String> mails = new ArrayList<>();
+        for (int i = start; i <=end; i++) {
+            if (redisOperate.get(String.valueOf(i))==null){
+                System.out.println("-------------------->query the database");
+                String s = userService.getEmailByID(i);
+                redisOperate.set(String.valueOf(i), s);
+                mails.add(s);
+            }else {
+                System.out.println("-----------get the data from cache---------------");
+                String s = redisOperate.get(String.valueOf(i));
+                mails.add(s);
+            }
         }
-        return users.toString();
+        return mails.toString();
     }
+
+//    @RequestMapping("/selectusersbyattribute/{attribute}/{start}/{end}")
+//    public String selectusersbyattribute(@PathVariable("attribute") String attribute, @PathVariable("start") int start, @PathVariable("end") int end) {
+//        HashMap map = new HashMap<>();
+//        map.put("start", start - 1);
+//        map.put("end", end + 1 - start);
+//
+//        List<String> users;
+//
+//        if (attribute.equals("id")) {
+//            users = userService.selectUsersByID(map);
+//        }else if (attribute.equals("name")){
+//            users = userService.selectUsersByName(map);
+//        }else if (attribute.equals("gender")){
+//            users = userService.selectUsersByGender(map);
+//        }else if (attribute.equals("email")){
+//            users = userService.selectUsersByEmail(map);
+//        }else if (attribute.equals("phone")){
+//            users = userService.selectUsersByPhone(map);
+//        }else if (attribute.equals("address")){
+//            users = userService.selectUsersByAddress(map);
+//        }else {
+//            users = userService.selectUsersByAge(map);
+//        }
+//        return users.toString();
+//    }
 
 
 //    @RequestMapping("/selectusersbyattribute/{attribute}/{start}/{end}")

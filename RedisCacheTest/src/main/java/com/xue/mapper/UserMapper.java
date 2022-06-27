@@ -27,4 +27,6 @@ public interface UserMapper {
     List<String> selectUsersByAddress(Map map);
 
     User getUserByID(int id);
+
+    String getEmailByID(int id);
 }

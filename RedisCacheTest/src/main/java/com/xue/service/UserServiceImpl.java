@@ -89,6 +89,11 @@ public class UserServiceImpl implements UserService {
         return userMapper.getUserByID(id);
     }
 
+    @Override
+    public String getEmailByID(int id) {
+        return userMapper.getEmailByID(id);
+    }
+
 
     @Override
     public void initDatabase(User user) {
