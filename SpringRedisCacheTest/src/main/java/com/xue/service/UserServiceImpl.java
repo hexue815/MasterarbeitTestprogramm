@@ -6,10 +6,12 @@ import com.xue.utils.RandomValue;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.cache.annotation.Cacheable;
 
 import java.util.List;
 import java.util.Map;
 
+@Cacheable(value = "user")
 public class UserServiceImpl implements UserService {
     @Autowired
     @Qualifier("userMapper")
@@ -36,18 +38,6 @@ public class UserServiceImpl implements UserService {
     public List<User> selectUsersWithScope(Map map) {
         return userMapper.selectUsersWithScope(map);
     }
-
-    /*测试一级缓存*/
-//    @Override
-//    public List<User> selectUsersWithScope(Map map) {
-//        List<User> users = new ArrayList<>();
-//        for (int i = 0; i < 2; i++) {
-//            users = userMapper.selectUsersWithScope(map);
-//            logger.info("----------->query database");
-//            System.out.println(users);
-//        }
-//        return users;
-//    }
 
     @Override
     public List<String> selectUsersByID(Map map) {
@@ -83,6 +73,17 @@ public class UserServiceImpl implements UserService {
     public List<String> selectUsersByAge(Map map) {
         return userMapper.selectUsersByAge(map);
     }
+
+    @Override
+    public User getUserByID(int id) {
+        return userMapper.getUserByID(id);
+    }
+
+    @Override
+    public String getEmailByID(int id) {
+        return userMapper.getEmailByID(id);
+    }
+
 
     @Override
     public void initDatabase(User user) {

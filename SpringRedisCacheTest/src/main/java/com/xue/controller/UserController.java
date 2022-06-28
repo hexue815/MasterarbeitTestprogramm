@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -31,6 +32,9 @@ public class UserController {
         return users.toString();
     }
 
+    /*
+    * query all attributes of users with scope
+    * */
     @RequestMapping("/selectusers/{start}/{end}")
     public String selectUsers(@PathVariable("start") int start, @PathVariable("end") int end){
         HashMap map = new HashMap<>();
@@ -40,6 +44,9 @@ public class UserController {
         return users.toString();
     }
 
+    /*
+    * query attributes with scope
+    * */
     @RequestMapping("/selectusersbyattribute/{attribute}/{start}/{end}")
     public String selectusersbyattribute(@PathVariable("attribute") String attribute, @PathVariable("start") int start, @PathVariable("end") int end) {
         HashMap map = new HashMap<>();
