@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -41,59 +40,39 @@ public class UserController {
     * */
     @RequestMapping("/selectusers/{start}/{end}")
     public String selectUsers(@PathVariable("start") int start, @PathVariable("end") int end){
-        List<String> users = new ArrayList<>();
-        for (int i = start; i <=end ; i++) {
-            if (redisOperate.get(String.valueOf(i))==null){
-                System.out.println("-------------------->query the database");
-                String s = userService.getUserByID(i).toString();
-                redisOperate.set(String.valueOf(i), s);
-                users.add(s);
-            }else {
-                System.out.println("-----------get the data from cache---------------");
-                String s = redisOperate.get(String.valueOf(i));
-                users.add(s);
-            }
+        HashMap map = new HashMap<>();
+        map.put("start", start - 1);
+        map.put("end", end + 1 - start);
+        String key = map.toString();
+        String usersString = null;
+        if (redisOperate.get(key)==null){
+            System.out.println("-------------------->query the database------------");
+            usersString = userService.selectUsersWithScope(map).toString();
+            redisOperate.set(key, usersString);
+        }else{
+            System.out.println("-----------get the data from cache---------------");
+            usersString = redisOperate.get(key);
         }
-        return users.toString();
+        return usersString;
     }
 
     /*
-    * query attribute "email" with scope
-    * query other attributes by adding getXXXByID(i)
-    * */
-    @RequestMapping("/getemails/{start}/{end}")
-    public String getEmailsByID(@PathVariable("start") int start, @PathVariable("end") int end){
-        List<String> mails = new ArrayList<>();
-        for (int i = start; i <=end; i++) {
-            if (redisOperate.get(String.valueOf(i))==null){
-                System.out.println("-------------------->query the database");
-                String s = userService.getEmailByID(i);
-                redisOperate.set(String.valueOf(i), s);
-                mails.add(s);
-            }else {
-                System.out.println("-----------get the data from cache---------------");
-                String s = redisOperate.get(String.valueOf(i));
-                mails.add(s);
-            }
-        }
-        return mails.toString();
-    }
-
+     * query attributes with scope
+     * */
     @RequestMapping("/selectusersbyattribute/{attribute}/{start}/{end}")
     public String selectusersbyattribute(@PathVariable("attribute") String attribute, @PathVariable("start") int start, @PathVariable("end") int end) {
         HashMap map = new HashMap<>();
         map.put("start", start - 1);
         map.put("end", end + 1 - start);
         String key = map.toString();
-        List<String> users;
+
         String usersString = null;
 
         if (attribute.equals("id")) {
             if (redisOperate.get(key)==null){
                 System.out.println("-------------------->query the database");
-                users = userService.selectUsersByID(map);
-                redisOperate.set(key, users.toString());
-                return users.toString();
+                usersString = userService.selectUsersByID(map).toString();
+                redisOperate.set(key, usersString);
             }else{
                 System.out.println("-----------get the data from cache---------------");
                 usersString = redisOperate.get(key);
@@ -101,9 +80,8 @@ public class UserController {
         }else if (attribute.equals("name")){
             if (redisOperate.get(key)==null){
                 System.out.println("-------------------->query the database");
-                users = userService.selectUsersByName(map);
-                redisOperate.set(key, users.toString());
-                return users.toString();
+                usersString = userService.selectUsersByName(map).toString();
+                redisOperate.set(key, usersString);
             }else{
                 System.out.println("-----------get the data from cache---------------");
                 usersString = redisOperate.get(key);
@@ -111,9 +89,8 @@ public class UserController {
         }else if (attribute.equals("gender")){
             if (redisOperate.get(key)==null){
                 System.out.println("-------------------->query the database");
-                users = userService.selectUsersByGender(map);
-                redisOperate.set(key, users.toString());
-                return users.toString();
+                usersString = userService.selectUsersByGender(map).toString();
+                redisOperate.set(key, usersString);
             }else{
                 System.out.println("-----------get the data from cache---------------");
                 usersString = redisOperate.get(key);
@@ -121,9 +98,8 @@ public class UserController {
         }else if (attribute.equals("email")){
             if (redisOperate.get(key)==null){
                 System.out.println("-------------------->query the database");
-                users = userService.selectUsersByEmail(map);
-                redisOperate.set(key, users.toString());
-                return users.toString();
+                usersString = userService.selectUsersByEmail(map).toString();
+                redisOperate.set(key, usersString);
             }else{
                 System.out.println("-----------get the data from cache---------------");
                 usersString = redisOperate.get(key);
@@ -131,9 +107,8 @@ public class UserController {
         }else if (attribute.equals("phone")){
             if (redisOperate.get(key)==null){
                 System.out.println("-------------------->query the database");
-                users = userService.selectUsersByPhone(map);
-                redisOperate.set(key, users.toString());
-                return users.toString();
+                usersString = userService.selectUsersByPhone(map).toString();
+                redisOperate.set(key, usersString);
             }else{
                 System.out.println("-----------get the data from cache---------------");
                 usersString = redisOperate.get(key);
@@ -141,9 +116,8 @@ public class UserController {
         }else if (attribute.equals("address")){
             if (redisOperate.get(key)==null){
                 System.out.println("-------------------->query the database");
-                users = userService.selectUsersByAddress(map);
-                redisOperate.set(key, users.toString());
-                return users.toString();
+                usersString = userService.selectUsersByAddress(map).toString();
+                redisOperate.set(key, usersString);
             }else{
                 System.out.println("-----------get the data from cache---------------");
                 usersString = redisOperate.get(key);
@@ -151,9 +125,8 @@ public class UserController {
         }else {
             if (redisOperate.get(key)==null){
                 System.out.println("-------------------->query the database");
-                users = userService.selectUsersByAge(map);
-                redisOperate.set(key, users.toString());
-                return users.toString();
+                usersString = userService.selectUsersByAge(map).toString();
+                redisOperate.set(key, usersString);
             }else{
                 System.out.println("-----------get the data from cache---------------");
                 usersString = redisOperate.get(key);
@@ -161,23 +134,6 @@ public class UserController {
         }
         return usersString;
     }
-
-
-//    @RequestMapping("/selectusersbyattribute/{attribute}/{start}/{end}")
-//    public void testRedis(@PathVariable("start") int start, @PathVariable("end") int end){
-//        HashMap map = new HashMap<>();
-//        map.put("start", start - 1);
-//        map.put("end", end + 1 - start);
-//
-//        String start1 = redisOperate.get(String.valueOf(start));
-//        System.out.println("--------------------> start1 ist:" + start1);
-//        if (start1==null){
-//            String s = userService.selectUsersByID(map).toString();
-//            redisOperate.set(String.valueOf(start), s);
-//        }else {
-//            System.out.println("-----------get the data from cache---------------");
-//        }
-//    }
 
     @RequestMapping("/test")
     public String test() {
