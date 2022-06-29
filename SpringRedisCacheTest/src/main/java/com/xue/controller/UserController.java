@@ -40,8 +40,7 @@ public class UserController {
         HashMap map = new HashMap<>();
         map.put("start", start-1);
         map.put("end", end+1-start);
-        List<User> users = userService.selectUsersWithScope(map);
-        return users.toString();
+        return userService.selectUsersWithScope(map);
     }
 
     /*
@@ -53,24 +52,24 @@ public class UserController {
         map.put("start", start - 1);
         map.put("end", end + 1 - start);
 
-        List<String> users;
+        String usersString;
 
         if (attribute.equals("id")) {
-            users = userService.selectUsersByID(map);
+            usersString = userService.selectUsersByID(map);
         }else if (attribute.equals("name")){
-            users = userService.selectUsersByName(map);
+            usersString = userService.selectUsersByName(map);
         }else if (attribute.equals("gender")){
-            users = userService.selectUsersByGender(map);
+            usersString = userService.selectUsersByGender(map);
         }else if (attribute.equals("email")){
-            users = userService.selectUsersByEmail(map);
+            usersString = userService.selectUsersByEmail(map);
         }else if (attribute.equals("phone")){
-            users = userService.selectUsersByPhone(map);
+            usersString = userService.selectUsersByPhone(map);
         }else if (attribute.equals("address")){
-            users = userService.selectUsersByAddress(map);
+            usersString = userService.selectUsersByAddress(map);
         }else {
-            users = userService.selectUsersByAge(map);
+            usersString = userService.selectUsersByAge(map);
         }
-        return users.toString();
+        return usersString;
     }
 }
 

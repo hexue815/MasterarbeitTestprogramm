@@ -1,5 +1,7 @@
 package com.xue.utils;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.cache.Cache;
 import org.springframework.cache.support.SimpleValueWrapper;
 import org.springframework.dao.DataAccessException;
@@ -40,20 +42,33 @@ public class RedisUtil implements Cache {
     /**
      * 从缓存中获取key
      */
+//    @Override
+//    public ValueWrapper get(Object key) {
+//        System.out.println("-------------------->get key from Redis");
+//        final String keyf = key.toString();
+//        Object object = null;
+//        object = redisTemplate.execute((RedisCallback<Object>) connection -> {
+//            byte[] key1 = keyf.getBytes();
+//            byte[] value = connection.get(key1);
+//            if (value == null) {
+//                return null;
+//            }
+//            return toObject(value);
+//        });
+//        return (object != null ? new SimpleValueWrapper(object) : null);
+//    }
     @Override
     public ValueWrapper get(Object key) {
-        System.out.println("-------------------->get key from Redis");
+        System.out.println("-------------------->get key from Redis----------------");
         final String keyf = key.toString();
         Object object = null;
-        object = redisTemplate.execute(new RedisCallback<Object>() {
-            public Object doInRedis(RedisConnection connection) throws DataAccessException {
-                byte[] key = keyf.getBytes();
-                byte[] value = connection.get(key);
-                if (value == null) {
-                    return null;
-                }
-                return toObject(value);
+        object = redisTemplate.execute((RedisCallback<Object>) connection -> {
+            byte[] key1 = keyf.getBytes();
+            byte[] value = connection.get(key1);
+            if (value == null) {
+                return null;
             }
+            return toObject(value);
         });
         return (object != null ? new SimpleValueWrapper(object) : null);
     }
@@ -64,18 +79,34 @@ public class RedisUtil implements Cache {
      */
     @Override
     public void put(Object key, Object value) {
-        System.out.println("-------------------->put key in Redis");
+        System.out.println("-------------------->put key in Redis----------------");
         final String keyf = key.toString();
         final Object valuef = value;
-        redisTemplate.execute(new RedisCallback<Long>() {
-            public Long doInRedis(RedisConnection connection) throws DataAccessException {
-                byte[] keyb = keyf.getBytes();
-                byte[] valueb = toByteArray(valuef);
-                connection.set(keyb, valueb);
-                return 1L;
-            }
+        System.out.println(valuef.getClass().toString());
+        System.out.println(valuef);
+        redisTemplate.execute((RedisCallback<Long>) connection -> {
+            byte[] keyb = keyf.getBytes();
+            byte[] valueb = toByteArray(valuef);
+            System.out.println(valueb);
+            connection.set(keyb, valueb);
+            return 1L;
         });
     }
+
+//    @Override
+//    public void put(Object key, Object value) {
+//        System.out.println("-------------------->put key in Redis");
+//        final String keyf = key.toString();
+//        final Object valuef = value;
+//        redisTemplate.execute(new RedisCallback<Long>() {
+//            public Long doInRedis(RedisConnection connection) throws DataAccessException {
+//                byte[] keyb = keyf.getBytes();
+//                byte[] valueb = toByteArray(valuef);
+//                connection.set(keyb, valueb);
+//                return 1L;
+//            }
+//        });
+//    }
 
     private byte[] toByteArray(Object obj) {
         byte[] bytes = null;

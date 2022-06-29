@@ -13,21 +13,21 @@ public interface UserService {
 
     void insertUser(User user);
 
-    List<User> selectUsersWithScope(Map map);
+    String selectUsersWithScope(Map map);
 
-    List<String> selectUsersByID(Map map);
+    String selectUsersByID(Map map);
 
-    List<String> selectUsersByName(Map map);
+    String selectUsersByName(Map map);
 
-    List<String> selectUsersByGender(Map map);
+    String selectUsersByGender(Map map);
 
-    List<String> selectUsersByEmail(Map map);
+    String selectUsersByEmail(Map map);
 
-    List<String> selectUsersByPhone(Map map);
+    String selectUsersByPhone(Map map);
 
-    List<String> selectUsersByAddress(Map map);
+    String selectUsersByAddress(Map map);
 
-    List<String> selectUsersByAge(Map map);
+    String selectUsersByAge(Map map);
 
     User getUserByID(int id);
 

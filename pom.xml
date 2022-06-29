@@ -15,6 +15,7 @@
         <module>SpringCacheTest</module>
         <module>RedisCacheTest</module>
         <module>SpringRedisCacheTest</module>
+        <module>L1-L2-Cache</module>
     </modules>
 
     <properties>

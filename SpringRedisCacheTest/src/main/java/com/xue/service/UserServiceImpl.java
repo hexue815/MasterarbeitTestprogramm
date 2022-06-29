@@ -35,43 +35,43 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<User> selectUsersWithScope(Map map) {
-        return userMapper.selectUsersWithScope(map);
+    public String selectUsersWithScope(Map map) {
+        return userMapper.selectUsersWithScope(map).toString();
     }
 
     @Override
-    public List<String> selectUsersByID(Map map) {
-        return userMapper.selectUsersByID(map);
+    public String selectUsersByID(Map map) {
+        return userMapper.selectUsersByID(map).toString();
     }
 
     @Override
-    public List<String> selectUsersByName(Map map) {
-        return userMapper.selectUsersByName(map);
+    public String selectUsersByName(Map map) {
+        return userMapper.selectUsersByName(map).toString();
     }
 
     @Override
-    public List<String> selectUsersByGender(Map map) {
-        return userMapper.selectUsersByGender(map);
+    public String selectUsersByGender(Map map) {
+        return userMapper.selectUsersByGender(map).toString();
     }
 
     @Override
-    public List<String> selectUsersByEmail(Map map) {
-        return userMapper.selectUsersByEmail(map);
+    public String selectUsersByEmail(Map map) {
+        return userMapper.selectUsersByEmail(map).toString();
     }
 
     @Override
-    public List<String> selectUsersByPhone(Map map) {
-        return userMapper.selectUsersByPhone(map);
+    public String selectUsersByPhone(Map map) {
+        return userMapper.selectUsersByPhone(map).toString();
     }
 
     @Override
-    public List<String> selectUsersByAddress(Map map) {
-        return userMapper.selectUsersByAddress(map);
+    public String selectUsersByAddress(Map map) {
+        return userMapper.selectUsersByAddress(map).toString();
     }
 
     @Override
-    public List<String> selectUsersByAge(Map map) {
-        return userMapper.selectUsersByAge(map);
+    public String selectUsersByAge(Map map) {
+        return userMapper.selectUsersByAge(map).toString();
     }
 
     @Override
