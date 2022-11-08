@@ -43,7 +43,7 @@ public class UserController {
     }
 
     @RequestMapping("/selectusersbyattribute/{attribute}/{start}/{end}")
-    public String selectusersbyattribute(@PathVariable("attribute") String attribute, @PathVariable("start") int start, @PathVariable("end") int end) {
+    public String selectUsersByAttribute(@PathVariable("attribute") String attribute, @PathVariable("start") int start, @PathVariable("end") int end) {
         HashMap map = new HashMap<>();
         map.put("start", start - 1);
         map.put("end", end + 1 - start);
